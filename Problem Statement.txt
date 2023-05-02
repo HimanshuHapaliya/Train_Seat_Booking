@@ -1,0 +1,19 @@
+Train Reservation System
+
+You are designing and implementing a system to enable users to book train tickets through an online portal. In other words, you are working for IRCTC to implement the train reservation system. 
+
+In this round, you will have to build the system incrementally as explained below. For simplicity and considering the time constraints, some of these requirements are simplified. 
+
+Book tickets for a given route, class/coach type and number of passengers.
+ 
+Example:
+You will be given a list of trains and coach configurations in below format.
+2
+17726 Rajkot-0 Mumbai-750
+17226 S1-72 S2-72 B1-72 A1-48 H1-24
+37392 Ahmedabad-0 Surat-300
+37392 S1-15 S2-20 S3-50 B1-36 B2-48
+
+Your program should book the tickets, if there is a train for a given route and if the required number of seats are available in the selected class.
+
+Output: 100000001 4500
