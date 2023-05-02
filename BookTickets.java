@@ -64,53 +64,23 @@ class BookTickets
                 if(train[i].getpickPoint().equals(customerData[0]) && train[i].getdropPoint().equals(customerData[1]))
                 {
                     // System.out.println("Inserted");
-                    if(isSlotAvailable(train[0].getSeats(customerData[3],i),customerData[4]))
+                    System.out.println(train[i].getSeats(customerData[3],i,customerData[4],a));
+                    if(train[i].getSeats(customerData[3],i,customerData[4],a)>=0)
                     {
-                        if(customerData[3]=="SL")
-                        a[i][3]-=Integer.parseInt(customerData[4]);
-                        else if(customerData[3]=="1A")
-                        a[i][2]-=Integer.parseInt(customerData[4]);
-                        else if(customerData[3]=="2A")
-                        a[i][0]-=Integer.parseInt(customerData[4]);
-                        else
-                        a[i][1]-=Integer.parseInt(customerData[4]);
-                        
-                        if(a[i][0]>0 && a[i][1]>0 && a[i][2]>0 && a[i][3]>0)
-                        {
                         pnr++;
                         int c=calculateCharge(customerData[3], train[0].getDistance(), Integer.parseInt(customerData[4]));
                         customerList.add(new Customer(customerData[0], customerData[1], customerData[2], customerData[3], customerData[4], pnr, c));
                         System.out.print(pnr+" ");
                         System.out.println(c);
-                        break;
-                        }
-                        else
-                        System.out.println("No Seats Available");
                     }
                     else
                     {
                         System.out.println("No seats Available");
                     }  
                 }
-                else
-                {
-                    System.out.println("No Trains Available");
-                    break;
-                }
             }
         
         }
-    }
-    static boolean isSlotAvailable()
-    {
-        if(Remseats-Integer.parseInt(passenger)>0)
-        {
-
-            return true;
-        }
-        
-        else
-        return false;
     }
     static int calculateCharge(String cat,int kms,int noPassenger)
     {
@@ -154,16 +124,34 @@ class Train
         this.distance=distance;
         this.coaches=coaches;
     }
-    public int getSeats(String ca,int i)
+    public int getSeats(String ca,int g,String pass,int mat[][])
     {
-        if(ca=="1A")
-        return coaches[i][2];
-        else if(ca=="2A")
-        return coaches[i][0];
-        else if(ca=="3A")
-        return coaches[i][1];
-        else
-        return coaches[i][3];
+        if(ca.equals("1A"))
+        {
+            if(mat[g][2]-Integer.parseInt(pass)>0)            
+            mat[g][2]-=Integer.parseInt(pass);
+            return mat[g][2];
+        }
+        else if(ca.equals("2A"))
+        {
+            if(mat[g][0]-Integer.parseInt(pass)>0)
+            mat[g][0]-=Integer.parseInt(pass);
+            return mat[g][0];
+        }
+        else if(ca.equals("3A"))
+        {
+            if(mat[g][1]-Integer.parseInt(pass)>0)
+            mat[g][1]-=Integer.parseInt(pass);
+            return mat[g][1];
+        }
+        else if(ca.equals("SL"))
+        {
+            System.out.println(mat[g][3]);
+            if(mat[g][3]-Integer.parseInt(pass)>0)
+            mat[g][3]-=Integer.parseInt(pass);
+            return mat[g][3];
+        }
+        return -1;
     }
     public String getpickPoint()
     {
